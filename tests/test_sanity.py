@@ -247,7 +247,7 @@ class sanity(RunnerCore):
     restore_and_set_up()
 
     # Clang should report the version number we expect, and emcc should not warn
-    assert shared.check_clang_version()
+    assert shared.check_llvm_version()
     output = self.check_working(EMCC)
     assert LLVM_WARNING not in output, output
 

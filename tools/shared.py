@@ -405,7 +405,10 @@ def check_llvm_version():
 
 
 def get_llc_targets():
-  llc_version_info = check_call([LLVM_COMPILER, '--version'], stdout=PIPE).stdout
+  try:
+    llc_version_info = run_process([LLVM_COMPILER, '--version'], stdout=PIPE).stdout
+  except Exception as e:
+    return '(no targets could be identified: ' + str(e) + ')'
   if 'Registered Targets:' not in llc_version_info:
     return '(no targets could be identified: ' + llc_version_info + ')'
   pre, targets = llc_version_info.split('Registered Targets:')
